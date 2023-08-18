@@ -62,6 +62,7 @@ class GAPool(nn.Module):
 def sequence2square(x, s):
     """[B, N, C] -> [B*(N/s^2), C, s, s]"""
     size = x.size()
+    # import pdb; pdb.set_trace()
     assert size[1] % (s * s) == 0
     L = size[1] // (s * s)
     x = x.view(-1, s, s, size[2])

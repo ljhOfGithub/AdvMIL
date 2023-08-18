@@ -180,7 +180,7 @@ class MyHandler(object):
         val_loaders = {'validation': val_loader, 'test': test_loader}
         self._run_training(self.cfg['epochs'], train_loader, 'train', val_loaders=val_loaders, val_name=val_name, 
             measure_training_set=True, save_ckpt=True, early_stop=True, run_name=run_name)
-
+        # import pdb; pdb.set_trace()
         # Evals
         evals_loader = {'train': train_loader, 'validation': val_loader, 'test': test_loader}
         metrics = self._eval_all(evals_loader, ckpt_type='best', run_name=run_name, if_print=True)
@@ -285,6 +285,7 @@ class MyHandler(object):
                         val_metrics = met_ci if self.cfg['monitor_metrics'] == 'ci' else met_loss
             
             # early_stop using VAL_METRICS (**is measured using alpha=0.0**)
+            # import pdb; pdb.set_trace()
             if val_metrics is not None and self.early_stop is not None:
                 self.steplr.step(val_metrics)
                 self.early_stop(epoch, val_metrics)
@@ -598,6 +599,7 @@ class MyHandler(object):
     @staticmethod
     def test_model(modelG, modelD, backbone, loader, times_test_sample=1, checkpoints=None, test_zero_noise=False):
         if checkpoints is not None:
+            # import pdb; pdb.set_trace()
             netG_ckpt = torch.load(checkpoints[0])
             netD_ckpt = torch.load(checkpoints[1])
             modelG.load_state_dict(netG_ckpt['model'])

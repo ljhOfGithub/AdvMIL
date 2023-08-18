@@ -344,8 +344,9 @@ class EarlyStopping:
 
     def if_save_checkpoint(self, **kws):
         return self.save_checkpoint
+        # return True #方便调试
 
-    def update_score(self, val_loss):
+    def update_score(self, val_loss):#仅仅在损失减少的时候才保存检查点
         '''Saves model when validation loss decrease.'''
         if self.verbose:
             print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
