@@ -308,7 +308,8 @@ class EarlyStopping:
             verbose (bool): If True, prints a message for each validation loss improvement. 
                             Default: False
         """
-        self.warmup = warmup
+        # self.warmup = warmup #至少5个epoch才有最佳模型的概念
+        self.warmup = 1 #方便调试
         self.patience = patience
         self.start_epoch = start_epoch
         self.verbose = verbose

@@ -17,7 +17,8 @@ wandb_prj: AdvMIL-mysplit # wandb project name 在网站上显示的项目名，
 # save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log # path to save log files during training and testing
 # save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_commmon # path to save log files during training and testing
 # save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_test # path to save log files during training and testing 仅测试模式的log不是在这里设置，这里设置训练模式的log
-save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_mysplit # path to save log files during training and testing 仅测试模式的log不是在这里设置，这里设置训练模式的log 不是放置各个split的结果log，应该是放置总的log
+# save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_mysplit # path to save log files during training and testing 仅测试模式的log不是在这里设置，这里设置训练模式的log 不是放置各个split的结果log，应该是放置总的log
+save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_mysplit/log #一定要再子目录，否则会保存为log_mysplit-data_split_seed_0
 # 测试时save_path不起作用
 # data
 # dataset: NLST
@@ -96,7 +97,8 @@ opt_netD_lr: 0.00008 # learning rate of discriminator
 #training
 # epochs: 300 # epoch numbers
 # epochs: 150 # epoch numbers 方便调试
-epochs: 2 # epoch numbers 方便调试
+# epochs: 2 # epoch numbers 方便调试 如果epoch太小可能导致验证集的损失函数不减少，最后没有最好的模型，则会报错 No such file or directory: '/home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_mysplit-data_split_seed_0/train_modelG-best.pth'
+epochs: 2 #warmup是i，则epochs至少是i+1
 batch_size: 1 
 bp_every_batch: 16 #Backpropagation
 # num_workers: 8 # work numbers for loading WSI features
