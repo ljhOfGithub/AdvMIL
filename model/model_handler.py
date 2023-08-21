@@ -151,6 +151,7 @@ class MyHandler(object):
             collate = default_collate
 
         # Prepare datasets 
+        # import pdb; pdb.set_trace()
         train_set  = prepare_dataset(pids_train, self.cfg, ratio_sampling=self.cfg['train_sampling'])
         self.patient_id.update({'train': train_set.pids})
         val_set    = prepare_dataset(pids_val, self.cfg)

@@ -6,16 +6,19 @@ cuda_id: 0
 # wandb_dir: /home/liup/repo/AdvMIL # path to this repo
 # wandb_dir: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA # path to this repo 用于保存log和checkpoints的地方 放置了log-data_split_seed_0等，转移到了log_common中
 # wandb_dir: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_common # path to this repo 用于保存log和checkpoints的地方 上面写错了路径，导致可能混淆
-wandb_dir: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_test # path to this repo 用于保存log和checkpoints的地方 仅测试模式的
+# wandb_dir: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_test # path to this repo 用于保存log和checkpoints的地方 仅测试模式的
+wandb_dir: /home/jupyter-ljh/data/mydata/AdvMIL-main/log # path to this repo 用于保存log和checkpoints的地方 调整到同目录下 放在机械硬盘看结果太麻烦 用于放置各个split的pth等
 # wandb_dir: /home/jupyter-ljh/data/mydata/AdvMIL-main # path to this repo
 # wandb_prj: AdvMIL-adv # wandb project name
 # wandb_prj: AdvMIL-main # wandb project name 在网站上显示的项目名，不用预先建立
-wandb_prj: AdvMIL-test # wandb project name 在网站上显示的项目名，不用预先建立 仅测试模式
+# wandb_prj: AdvMIL-test # wandb project name 在网站上显示的项目名，不用预先建立 仅测试模式
+wandb_prj: AdvMIL-mysplit # wandb project name 在网站上显示的项目名，不用预先建立 自己的split
 # save_path: ./results-adv/nlst-patch # path to save log files during training and testing
 # save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log # path to save log files during training and testing
 # save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_commmon # path to save log files during training and testing
-save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_test # path to save log files during training and testing 仅测试模式的log
-
+# save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_test # path to save log files during training and testing 仅测试模式的log不是在这里设置，这里设置训练模式的log
+save_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_mysplit # path to save log files during training and testing 仅测试模式的log不是在这里设置，这里设置训练模式的log 不是放置各个split的结果log，应该是放置总的log
+# 测试时save_path不起作用
 # data
 # dataset: NLST
 dataset: BRCA
@@ -24,19 +27,23 @@ dataset: BRCA
 # path_patch: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/tiles-l1-s256-fea/pt_files # path to patch features, for patch-based models 好像只能用l1
 path_patch: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/tiles-l1-s256-fea/pt_files # path to patch features, for patch-based models 好像只能用l1
 # path_graph: /data/nlst/processed/wsigraph-l1-features # path to WSI graphs, for graph-based models
-path_graph: /data/nlst/processed/wsigraph-l1-features # path to WSI graphs, for graph-based models
-path_cluster: /data/nlst/processed/patch-l1-cluster8-ids # path to patch clusters, for cluster-based models
-path_coordx5: null
-# path_label: ./table/nlst_path_full.csv # path to the csv table with patient_id, pathology_id, t, e
+# path_graph: /data/nlst/processed/wsigraph-l1-features # path to WSI graphs, for graph-based models
+path_graph: null
+# path_cluster: /data/nlst/processed/patch-l1-cluster8-ids # path to patch clusters, for cluster-based models #应该没用到，没有这个文件夹，有点奇怪
+path_cluster: null
+path_coordx5: null #只用到patch，把graph，coordx5全部设置为null，防止kws包含到该参数
+# path_label: ./table/nlst_path_full.csv # path to the csv table with patient_id, pathology_id, t（生存时间）, e（事件发生与否）
 # path_label: /home/jupyter-ljh/data/mydata/DSCA-main/data_split/tcga_brca/tcga_brca_path_full_ljh.csv # path to the csv table with patient_id, pathology_id, t, e
-path_label: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/data_split/tcga_brca/tcga_brca_path_full_ljh.csv # path to the csv table with patient_id, pathology_id, t, e
+# path_label: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/data_split/tcga_brca/tcga_brca_path_full_ljh.csv # path to the csv table with patient_id, pathology_id, t, e
+path_label: /home/jupyter-ljh/data/mydata/AdvMIL-main/data_split/tcga_brca_path_full_ljh.csv # path to the csv table with patient_id, pathology_id, t, e split放在代码目录下
 feat_format: pt 
 time_format: ratio
 time_bins: 4
 # data_split_path: ./data_split/nlst-fold{}.npz # path to data split
 # data_split_path: /home/jupyter-ljh/data/mydata/DSCA-main/data_split/tcga_brca/tcga_brca-seed54-fold{}-ljh.npz # path to data split 使用DSCA所用的split
 # data_split_path: /home/jupyter-ljh/data/mydata/DSCA-main/data_split/tcga_brca/tcga_brca-seed54-fold{}-ljh.npz # path to data split 使用DSCA所用的split
-data_split_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/data_split/tcga_brca/tcga_brca-seed54-fold{}-ljh.npz # path to data split 使用DSCA所用的split
+# data_split_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/data_split/tcga_brca/tcga_brca-seed54-fold{}-ljh.npz # path to data split
+data_split_path: /home/jupyter-ljh/data/mydata/AdvMIL-main/data_split/tcga_brca-seed54-fold{}-ljh.npz # path to data split #放在代码目录下
 data_split_seed: [0, 1, 2, 3, 4] # fold identifiers, used to fill the placeholder in `data_split_path`
 # data_split_seed: 0 # fold identifiers, used to fill the placeholder in `data_split_path` 方便调试
 save_prediction: True
@@ -120,10 +127,11 @@ ssl_es_verbose: True # if verbose when using early stopping
 ssl_es_start_epoch: 0 # early stopping setting
 
 # only for a testing mode
-# test: False
-test: True
+test: False
+# test: True
 test_wandb_prj: AdvMIL-best-zeromask-test # wandb project name of test mode
 test_path: test # dataset name you want to test, which should be a key in the npz file for data split
+# 不是在源代码文件夹下面的test
 # test_load_path: ./advmil_best_model/nlst-ablation_ncor_iprd_gl4-data_split_seed_{}-gen_noi_noise_0-1 # path to load trained models
 test_load_path: /home/jupyter-ljh/data/mntdata/data0/LI_jihao/AdvMIL-BRCA/log_common/log-data_split_seed_{} # path to load trained models 加载已经训练好的模型
 # test_save_path: ./results-robust/results-zeromask_test/advmil-best/nlst-test_maskzero_{}-data_split_seed_{} # path to save test results

@@ -54,9 +54,12 @@ def multi_run_main(handler, config):
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', '-f', required=True, type=str, help='path to the config file')
-    parser.add_argument('--handler', '-d', required=True, type=str, help='model handler (adv or base)')
-    parser.add_argument('--multi_run', action='store_true', help='flag: multi run')
+    # parser.add_argument('--config', '-f', required=True, type=str, help='path to the config file')
+    parser.add_argument('--config', '-f', type=str, default='config/cfg_brca.yaml', help='path to the config file') # 方便调试
+    # parser.add_argument('--handler', '-d', required=True, type=str, help='model handler (adv or base)')
+    parser.add_argument('--handler', '-d', type=str, default='adv', help='model handler (adv or base)') #方便调试
+    # parser.add_argument('--multi_run', action='store_true', help='flag: multi run')
+    parser.add_argument('--multi_run', default='True', help='flag: multi run') # 方便调试
     args = vars(parser.parse_args())
     return args
 

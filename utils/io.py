@@ -24,6 +24,7 @@ def retrieve_from_table(patient_ids, table_path, ret=None, level='slide', shuffl
     df = pd.read_csv(table_path, dtype={pid_column: str})
     assert_columns = [pid_column, 'pathology_id', 't', 'e']
     for c in assert_columns:
+        # import pdb; pdb.set_trace()
         assert c in df.columns
     if processing_table is not None and callable(processing_table):
         df = processing_table(df)
@@ -53,10 +54,15 @@ def retrieve_from_table(patient_ids, table_path, ret=None, level='slide', shuffl
 
     pid, sid = list(), list()
     pid2sid, pid2label, sid2pid, sid2label = dict(), dict(), dict(), dict()
+    # import pdb; pdb.set_trace()
     for p in patient_ids:
+        if p == 'nan':
+            continue
         if p not in pid2loc:
             print('[Warning] Patient ID {} not found in table {}.'.format(p, table_path))
         pid.append(p)
+        # import pdb; pdb.set_trace()
+        
         for _i in pid2loc[p]:
             _pid, _sid, _t, _ind = df.loc[_i, assert_columns].to_list()
             if _pid in pid2sid:
@@ -69,7 +75,11 @@ def retrieve_from_table(patient_ids, table_path, ret=None, level='slide', shuffl
             sid.append(_sid)
             sid2pid[_sid] = _pid
             sid2label = (_t, _ind)
-
+            
+            import pprint
+            current_locals = locals()
+            with open('./variables.txt', 'w') as f:
+                pprint.pprint(current_locals, stream=f)
     res = []
     for r in ret:
         res.append(eval(r))
@@ -118,7 +128,8 @@ def read_patch_coord(path: str, dtype:str='torch'):
         return coords 
 
 def read_datasplit_npz(path: str):
-    data_npz = np.load(path)
+    # data_npz = np.load(path)
+    data_npz = np.load(path,allow_pickle=True) #方便调试
     
     pids_train = [str(s) for s in data_npz['train_patients']]
     pids_val   = [str(s) for s in data_npz['val_patients']]

@@ -23,11 +23,23 @@ def prepare_dataset(patient_ids:list, cfg, **kws):
             ratio_mask = None
     else:
         ratio_mask = None
+    # import pdb; pdb.set_trace()
     if mode not in ['patch', 'graph', 'cluster']:
+    # if mode in ['patch', 'graph', 'cluster']:
         mode = 'patch' # load patch-style data by default.
     dataset = WSIPatch(
         patient_ids, path_patch, path_label, mode, 
         read_format=feat_format, time_format=time_format, time_bins=time_bins, ratio_sampling=ratio_sampling,
         ratio_mask=ratio_mask, cluster_path=cfg['path_cluster'], coord_path=cfg['path_coordx5'], graph_path=cfg['path_graph']
-    )
+    ) # 方便调试
+    # dataset = WSIPatch(
+    #     patient_ids, path_patch, path_label, mode, 
+    #     read_format=feat_format, time_format=time_format, time_bins=time_bins, ratio_sampling=ratio_sampling,
+    #     ratio_mask=ratio_mask,coord_path=cfg['path_coordx5']
+    # ) # 方便调试
+    # dataset = WSIPatch(
+    #     patient_ids, path_patch, path_label, mode, 
+    #     read_format=feat_format, time_format=time_format, time_bins=time_bins, ratio_sampling=ratio_sampling,
+    #     ratio_mask=ratio_mask
+    # ) # 方便调试
     return dataset
